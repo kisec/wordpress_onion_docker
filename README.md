@@ -2,14 +2,12 @@
 Please use the current source code for educational purposes.
 
 ## Setting
-1. Fork Current Repository
-
-2. Git Clone
+1. Git Clone
 ```sh
 git clone https://github.com/kisec/wordpress_onion_docker.git
 ```
 
-3. docker-compose install
+2. docker-compose install
 ```sh
 apt-get update
 apt-get install docker-compose
@@ -22,3 +20,5 @@ cd wordpress_onion_docker
 docker-compose up -d
 docker-compose logs -f
 ```
+
+

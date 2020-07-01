@@ -1,0 +1,35 @@
+version: '3.1'
+
+services:
+  tor:
+    image: goldy/tor-hidden-service:0.3.5.8
+    links:
+      - wordpress
+    environment:
+      SERVICE1_TOR_SERVICE_HOSTS: 80:wordpress:80
+
+  wordpress:
+    image: wordpress:5.2.2
+    volumes:
+      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
+      - ./htaccess:/var/www/html/.htaccess
+      - ./status.conf:/etc/apache2/mods-available/status.conf
+      - ./info.conf:/etc/apache2/mods-enabled/info.conf
+      - ./info.load:/etc/apache2/mods-enabled/info.load
+    restart: always
+    ports:
+      - 80:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: exampledb
+      MYSQL_USER: exampleuser
+      MYSQL_PASSWORD: examplepass
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
